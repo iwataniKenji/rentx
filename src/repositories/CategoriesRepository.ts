@@ -26,6 +26,18 @@ class CategoriesRepository {
 
     this.categories.push(category);
   }
+
+  // retorna lista de categorias
+  list(): Category[] {
+    return this.categories;
+  }
+
+  // executa validação de categoria
+  findByName(name: string): Category {
+    const category = this.categories.find(category => category.name === name);
+
+    return category;
+  }
 }
 
 export { CategoriesRepository };
