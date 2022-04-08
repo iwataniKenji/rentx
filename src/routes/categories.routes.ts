@@ -1,18 +1,27 @@
 import { Router } from 'express';
 
+import { Category } from '../model/Category';
+
 const categoriesRoutes = Router();
 
-const categories = [];
+const categories: Category[] = [];
 
-categoriesRoutes.post('/categories', (request, response) => {
+categoriesRoutes.post('/', (request, response) => {
   const { name, description } = request.body;
 
-  categories.push({
+  // chama constructor
+  const category = new Category();
+
+  // copia os atributos no objeto
+  Object.assign(category, {
     name,
     description,
+    create_at: new Date(),
   });
 
-  return response.status(201).send();
+  categories.push(category);
+
+  return response.status(201).json({ category });
 });
 
 export { categoriesRoutes };
