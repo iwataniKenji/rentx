@@ -1,22 +1,51 @@
 import { parse as csvParse } from 'csv-parse';
 import fs from 'fs';
 
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+
+interface IImportCategory {
+  name: string;
+  description: string;
+}
+
 class ImportCategoryUseCase {
-  // recebe arquivo do insomnia
-  execute(file: Express.Multer.File): void {
-    // cria stream do arquivo
-    const stream = fs.createReadStream(file.path);
+  constructor(private categoriesRepository: ICategoriesRepository) {}
 
-    // irá receber os chunks  
-    const parseFile = csvParse();
+  loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+    return new Promise((resolve, reject) => {
+      // cria stream do arquivo
+      const stream = fs.createReadStream(file.path);
 
-    // pipe -> possibilita direcionar cada chunk para local determinado (parseFile)
-    stream.pipe(parseFile);
+      const categories: IImportCategory[] = [];
 
-    // cada linha -> console.log
-    parseFile.on('data', async line => {
-      console.log(line);
+      // irá receber os chunks
+      const parseFile = csvParse();
+
+      // pipe -> possibilita direcionar cada chunk para local determinado (parseFile)
+      stream.pipe(parseFile);
+
+      // cada linha -> execução da função
+      parseFile
+        .on('data', async line => {
+          const [name, description] = line;
+          categories.push({
+            name,
+            description,
+          });
+        })
+        .on('end', () => {
+          resolve(categories);
+        })
+        .on('error', err => {
+          reject(err);
+        });
     });
+  }
+
+  // recebe arquivo do insomnia
+  async execute(file: Express.Multer.File): Promise<void> {
+    const categories = await this.loadCategories(file);
+    console.log(categories);
   }
 }
 
