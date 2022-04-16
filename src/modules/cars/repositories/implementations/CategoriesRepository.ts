@@ -1,3 +1,5 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { Category } from '../../entities/Category';
 import {
   ICategoriesRepository,
@@ -5,12 +7,13 @@ import {
 } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[];
+  // impossibilita chamada dos atributos do Repository em qualquer lugar (apenas internamente)
+  private repository: Repository<Category>;
 
   private static INSTANCE: CategoriesRepository;
 
   private constructor() {
-    this.categories = [];
+    this.repository = getRepository(Category);
   }
 
   // estancia repositório
@@ -23,28 +26,25 @@ class CategoriesRepository implements ICategoriesRepository {
     return CategoriesRepository.INSTANCE;
   }
 
-  create({ name, description }: ICreateCategoryDTO): void {
-    // chama constructor
-    const category = new Category();
-
-    // copia os atributos no objeto
-    Object.assign(category, {
-      name,
+  async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    const category = this.repository.create({
       description,
-      create_at: new Date(),
+      name,
     });
 
-    this.categories.push(category);
+    await this.repository.save(category);
   }
 
   // retorna lista de categorias
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 
   // executa validação de categoria
-  findByName(name: string): Category {
-    const category = this.categories.find(category => category.name === name);
+  async findByName(name: string): Promise<Category> {
+    // select * from categories where name = 'name' limit 1
+    const category = await this.repository.findOne({ name });
 
     return category;
   }
