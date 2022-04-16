@@ -10,20 +10,8 @@ class CategoriesRepository implements ICategoriesRepository {
   // impossibilita chamada dos atributos do Repository em qualquer lugar (apenas internamente)
   private repository: Repository<Category>;
 
-  private static INSTANCE: CategoriesRepository;
-
-  private constructor() {
+  constructor() {
     this.repository = getRepository(Category);
-  }
-
-  // estancia repositório
-  public static getInstance(): CategoriesRepository {
-    // caso não haja -> criar repositório
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-    // caso haja -> envia existente
-    return CategoriesRepository.INSTANCE;
   }
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
