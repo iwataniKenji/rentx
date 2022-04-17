@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Kleve\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add typeorm@0.2.45
+  C:\Program Files\nodejs\node.exe C:\Users\Kleve\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add tsyringe
 
 PATH: 
   C:\Users\Kleve\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Kleve\bin;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\dotnet;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\Kleve\scoop\shims;C:\Users\Kleve\AppData\Local\Microsoft\WindowsApps;C:\Users\Kleve\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Kleve\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -33,6 +33,7 @@ npm manifest:
       "pg": "^8.7.3",
       "reflect-metadata": "^0.1.13",
       "swagger-ui-express": "^4.3.0",
+      "typeorm": "0.2.45",
       "uuid": "^8.3.2"
     },
     "devDependencies": {

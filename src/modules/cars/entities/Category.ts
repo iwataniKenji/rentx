@@ -14,7 +14,7 @@ class Category {
   description: string;
 
   @CreateDateColumn()
-  create_at: Date;
+  created_at: Date;
 
   // se não houver id -> criar id
   constructor() {
